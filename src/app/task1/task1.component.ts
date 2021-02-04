@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
-import { ChangeDetectorRef } from '@angular/core';
+import { element } from 'protractor';
 export interface DialogData {
   animal: string;
   name: string;
@@ -48,6 +48,7 @@ export class Task1Component {
   flag1:boolean=false;
   animal: string;
   name: string;
+  element;
   constructor(public dialog: MatDialog)  {
    }
    @ViewChild(MatPaginator) paginator:MatPaginator;
@@ -55,11 +56,10 @@ export class Task1Component {
 ngOnInit() {
   this.dataSource.paginator=this.paginator;
 }
-   openDialog(): void {
+   openDialog(element): void {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
-      width: '500px',
-      height:'400px',
-      data: {name: this.name, animal: this.animal}
+      width: 'auto',
+      data: {element}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -97,10 +97,15 @@ ngOnInit() {
   templateUrl: 'dialog-overview-example-dialog.html',
 })
 export class DialogOverviewExampleDialog {
-
+element;
+data1;
   constructor(
     public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+    @Inject(MAT_DIALOG_DATA) public data: PeriodicElement) {
+      this.data1=data;
+      this.element =this.data1.element;
+      //console.log(this.element);
+    }
 
   onNoClick(): void {
     this.dialogRef.close();

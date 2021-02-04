@@ -1,7 +1,6 @@
 <div class="container">
-  <mat-toolbar color="warn">
-    <span>Local Variables</span>
-
+  <mat-toolbar color="accent">
+    <span>Novodhi Solutions</span>
   </mat-toolbar>
   <mat-form-field appearance="fill">
     <mat-label>Field variable</mat-label>
@@ -42,14 +41,14 @@
   <!-- Symbol Column -->
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Actions </th>
-    <td mat-cell *matCellDef="let element" style="text-align: center;"> <button (click)="openDialog()"><mat-icon color="primary" aria-hidden="false" aria-label="Example create icon" click="">create</mat-icon></button>&nbsp;
-      <button  (click)="openview()"><mat-icon color="primary" aria-hidden="false" aria-label="Example view_headline icon">view_headline</mat-icon></button>&nbsp;
-      <button ><mat-icon color="primary" aria-hidden="false" aria-label="Example file_copy icon">file_copy</mat-icon></button>
+    <td mat-cell *matCellDef="let element" style="text-align: center;"> <button (click)="openDialog(element)"><mat-icon color="primary" aria-hidden="false" matTooltip="Edit" aria-label="Example create icon" click="">create</mat-icon></button>&nbsp;
+      <button  (click)="openview(element)"><mat-icon color="primary"  matTooltip="Show" aria-hidden="false" aria-label="Example view_headline icon">view_headline</mat-icon></button>&nbsp;
+      <button ><mat-icon color="primary" aria-hidden="false"  matTooltip="copy" aria-label="Example file_copy icon">file_copy</mat-icon></button>
   </ng-container>
   <ng-container matColumnDef="delete">
     <th mat-header-cell *matHeaderCellDef> Delete </th>
     <td mat-cell *matCellDef="let element">
-      <button (click)="opendelete()"><mat-icon color="accent" aria-hidden="false" aria-label="Example delete icon">delete</mat-icon></button>
+      <button (click)="opendelete(element)"><mat-icon color="warn"  matTooltip="Delete" aria-hidden="false" aria-label="Example delete icon">delete</mat-icon></button>
     </td>
   </ng-container>
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -58,7 +57,7 @@
 </div>
 </div>
 <div>
-  <mat-paginator [pageSizeOptions]="[2,4,5]"showFirstLastButtons labelPosition="bottom"></mat-paginator>
+  <mat-paginator [pageSizeOptions]="[0,2,4]"showFirstLastButtons labelPosition="bottom"></mat-paginator>
 
 </div>
 
