@@ -1,6 +1,9 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { FormControl} from "@angular/forms";
+import { Observable } from 'rxjs';
+import {map,startWith  } from 'rxjs/operators';
 export interface DialogData {
   animal: string;
   name: string;
@@ -25,14 +28,14 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {position: 3, name: 'insured Code', category: 'incident', actions: 'Li',delete:'',data_type:'string',last_updated:'08-01-2001'},
   {position: 4, name: 'Model', category: 'property', actions: 'Be',delete:'',data_type:'string',last_updated:'18-01-2003'},
   {position: 5, name: 'done', category: 'individual', actions: 'B',delete:'',data_type:'date',last_updated:'14-01-2005'}
-
 ];
 @Component({
   selector: 'app-task1',
   templateUrl: './task1.component.html',
   styleUrls: ['./task1.component.css']
 })
-export class Task1Component {
+export class Task1Component  implements OnInit{
+  [x: string]: any;
   foods: Food[] = [
     {value: 'Table-variables', viewValue: 'Table-variables'},
     {value: 'Calculated Variables', viewValue: 'Calculated Variables'},
@@ -42,19 +45,25 @@ export class Task1Component {
     {value: 'Filter Rules', viewValue: 'Filter Rules '},
   ];
   displayedColumns: string[] = ['position', 'name','data_type', 'catagory','last_updated', 'actions','delete'];
+
+  myControl = new FormControl();
+  filteredOptions:Observable<string[]>;
   dataSource = ELEMENT_DATA;
   flag:boolean=true;
   flag1:boolean=false;
   animal: string;
   name: string;
   element;
+  ngOnInit() {
+
+    this.dataSource.paginator=this.paginator;
+  }
+
   constructor(public dialog: MatDialog)  {
    }
    @ViewChild(MatPaginator) paginator:MatPaginator;
 
-ngOnInit() {
-  this.dataSource.paginator=this.paginator;
-}
+
    openDialog(element): void {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
       width: 'auto',
